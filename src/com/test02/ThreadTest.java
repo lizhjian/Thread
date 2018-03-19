@@ -9,7 +9,7 @@ class Test extends  Thread{
 
     public void run(){
         for(int i=0;i<60;i++){
-            System.out.println(this.threadName+"test---run"+i);
+            System.out.println(this.getName()+"test---run"+i);
         }
 
     }
