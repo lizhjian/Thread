@@ -1,15 +1,18 @@
 package com.test02;
 
 class Test extends  Thread{
-    private String threadName;
+   // private String threadName;
 
     public Test( String threadName) {
-        this.threadName = threadName;
+      /*  this.threadName = threadName;*/
+      super(threadName);
     }
 
     public void run(){
         for(int i=0;i<60;i++){
-            System.out.println(this.getName()+"test---run"+i);
+        //    System.out.println(this.getName()+"test---run"+i);
+        //  获取当前线程对象  static Thread currentThread()
+            System.out.println(Thread.currentThread().getName()+i);
         }
 
     }
