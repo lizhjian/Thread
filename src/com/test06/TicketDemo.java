@@ -26,9 +26,13 @@ package com.test06;
  * 好处：解决了多线程的安全问题
  * 弊端：多个线程需要判断锁，较为消耗资源
  * 同步函数用的是哪个锁  --->this
+ * 如果函数被静态修饰后，使用的锁不是this,因为静态方法中也不可以定义this
+ * 静态进内存时，内存中没有本类对象，但是一定有该类对应的字节码文件对象
+ * 类名.class 该对象的类型是Class
+ * 静态同步方法使用的锁是该方法所在类的字节码文件对象   类名.class
  */
 class  Ticket  implements Runnable {
-    private int tick = 100;
+    private static int tick = 100;
     Object object = new Object();
 
     Boolean flag = true;
@@ -38,7 +42,7 @@ class  Ticket  implements Runnable {
     public  void run() {
        if(flag){
            while (true){
-               synchronized (this){
+               synchronized (Ticket.class){
                    if (tick>0){
                        try{
                            Thread.sleep(10);
@@ -61,7 +65,7 @@ class  Ticket  implements Runnable {
 
     }
    //同步函数
-    public synchronized  void show(){
+    public static synchronized  void show(){
         if(tick>0){
             try{
                 Thread.sleep(10);
