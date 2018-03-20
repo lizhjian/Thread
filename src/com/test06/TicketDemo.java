@@ -25,22 +25,42 @@ package com.test06;
  * 必须保证同步中只能有一个线程在执行
  * 好处：解决了多线程的安全问题
  * 弊端：多个线程需要判断锁，较为消耗资源
+ * 同步函数用的是哪个锁  --->this
  */
 class  Ticket  implements Runnable {
     private int tick = 100;
     Object object = new Object();
+
+    Boolean flag = true;
+
     //不能给循环加锁  在循环里面最小运行单位加锁
     @Override
     public  void run() {
-        while (true){
+       if(flag){
+           while (true){
+               synchronized (this){
+                   if (tick>0){
+                       try{
+                           Thread.sleep(10);
+                       }catch (Exception e){
+                           e.printStackTrace();
+                       }
 
-           // synchronized(object){
-                show();
+                       System.out.println(Thread.currentThread().getName()+"..code---"+tick--);
+                   }
+               }
 
+               //   this.show();
+           }
+       }else{
+           while (true){
+               this.show();
+           }
 
-        }
+       }
+
     }
-
+   //同步函数
     public synchronized  void show(){
         if(tick>0){
             try{
@@ -49,7 +69,7 @@ class  Ticket  implements Runnable {
                 e.printStackTrace();
             }
 
-            System.out.println(Thread.currentThread().getName()+"..sale---"+tick--);
+            System.out.println(Thread.currentThread().getName()+"..show---"+tick--);
             //  }
         }
     }
@@ -63,6 +83,12 @@ public class TicketDemo {
      Thread t2 = new Thread( t);
 
      t1.start();
+     try {
+         Thread.sleep(10);
+     }catch (InterruptedException e){
+         e.printStackTrace();
+     }
+     t.flag = false;
      t2.start();
 
     }
