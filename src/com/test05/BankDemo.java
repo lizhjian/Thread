@@ -17,17 +17,17 @@ import sun.swing.BakedArrayList;
 class Bank{
     private int sum;
     Object object = new Object();
-    public void add(int n){
+    public synchronized void add(int n){
 
-        synchronized (object){
+      //  synchronized (object){
             sum = sum +n;
             try{
-                Thread.sleep(200);
+                Thread.sleep(20);
             }catch (InterruptedException e){
                 e.printStackTrace();
             }
             System.out.println("sum----"+sum);
-        }
+       // }
 
 
     }
