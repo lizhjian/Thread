@@ -17,6 +17,7 @@ class Test implements Runnable
 
     @Override
     public void run() {
+        System.out.println(this);
        if(flag){
            synchronized (MyLock.locka){
                System.out.println("if  locka");
@@ -27,7 +28,7 @@ class Test implements Runnable
        }else{
            synchronized (MyLock.lockb){
                System.out.println("else  lockb");
-               synchronized (this){
+               synchronized (MyLock.locka){
                    System.out.println("else  locka");
                }
            }
