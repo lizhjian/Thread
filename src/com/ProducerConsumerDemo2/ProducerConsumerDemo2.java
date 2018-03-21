@@ -4,6 +4,13 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
+/**
+ * JDK1.5中提供了多线程设计解决方案
+ * 将同步Synchronized替换成线程Lock操作
+ * 将Object中的wait notify notifyAll 替换了Condition对象
+ * 该对象可以通过Lock锁，进行获取
+ * 该示例中，实现了本方只唤醒对象的操作
+ */
 class Resource{
     private String name;
     private int count = 1;
@@ -23,7 +30,7 @@ class Resource{
             while(this.flag){
                 try{
                     // wait();
-                    condition_pro.await();//设置等待
+                    condition_pro.await();//设置当前线程等待（持有的锁是condition_pro）
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -31,7 +38,7 @@ class Resource{
             this.name=name +"---"+count++;
             System.out.println(Thread.currentThread().getName()+"..生产者."+this.name);
             flag = true;
-            condition_con.signal(); //唤醒其他线程
+            condition_con.signal(); //
         }finally {
             lock.unlock();//无论如何都释放锁
         }
