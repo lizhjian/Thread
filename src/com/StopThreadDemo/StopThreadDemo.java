@@ -17,16 +17,16 @@ class StopThread implements Runnable{
     public  synchronized void run() {
         System.out.println("&&&&&&&&&&&&&&&&7");
         while(flag){
-           try{
+         /*  try{
                System.out.println("************");
-               this.wait();
+             //  this.wait();
                System.out.println("===============");
            }catch (InterruptedException e){
                e.printStackTrace();
                System.out.println(Thread.currentThread().getName()+".....InterruptedException");
                //只要发生异常说明有人强制他结束
                flag = false;
-           }
+           }*/
 
             System.out.println(Thread.currentThread().getName()+".....run");
         }
@@ -42,15 +42,15 @@ public class StopThreadDemo {
            Thread t1 = new Thread(st);
            Thread t2 = new Thread(st);
            t1.setDaemon(true);  //守护线程：当所有的前台线程后，守护线程自动结束
-           t1.setDaemon(true);  //守护线程
+           t2.setDaemon(true);  //守护线程
            t1.start();
            t2.start();
            int num = 0;
            while(true){
-                if(num++==600){
+                if(num++==60){
                   //  st.changeFlag();   //改变了状态但是没有终止线程
-                    t1.interrupt();  //清除冻结状态  捕获异常后继续执行 又进入等待
-                    t2.interrupt();
+                  //  t1.interrupt();  //清除冻结状态  捕获异常后继续执行 又进入等待
+                  //  t2.interrupt();
                      break;
                 }
                System.out.println(Thread.currentThread().getName()+"......"+num);
