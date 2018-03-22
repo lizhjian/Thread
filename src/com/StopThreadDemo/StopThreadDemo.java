@@ -4,7 +4,7 @@ package com.StopThreadDemo;
  * stop已过时。
  * 如何停止线程？
  * 只有一种，run方法结束
- * 开启多线程运行，云顶代码通常是循环结构
+ * 开启多线程运行，运行代码通常是循环结构
  * 只要控制住循环，就可以让run方法结束，也就是线程结束
  *
  * 特殊情况
@@ -15,7 +15,7 @@ class StopThread implements Runnable{
     private  boolean flag = true;
     @Override
     public  synchronized void run() {
-        System.out.println("&&&&&&&&&&&&&&&&7");
+        System.out.println("&&&&&&&&&&&&&&&&");
         while(flag){
          /*  try{
                System.out.println("************");
