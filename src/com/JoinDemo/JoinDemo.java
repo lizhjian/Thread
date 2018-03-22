@@ -10,7 +10,7 @@ class  Demo implements Runnable{
     @Override
     public void run() {
         for (int x = 0;x<50;x++){
-            System.out.println(Thread.currentThread().getName()+"......"+x);
+            System.out.println(Thread.currentThread().toString()+"......"+x);
         }
     }
 }
@@ -21,12 +21,14 @@ public class JoinDemo {
         Demo demo = new Demo();
         Thread t1 = new Thread(demo);
         Thread t2 = new Thread(demo);
-        t2.start();
         t1.start();
-        t1.join();  //t1抢夺cpu执行权，main冻结停止，t1 t2 交替执行，等t1结束后main活过来
+        t1.setPriority(Thread.MAX_PRIORITY);
+        t2.start();
+
+       // t1.join();  //t1抢夺cpu执行权，main冻结停止，t1 t2 交替执行，等t1结束后main活过来
 
         for(int x =0;x<80;x++){
-            System.out.println("main......"+x);
+            System.out.println(Thread.currentThread().toString()+"...main...."+x);
         }
         System.out.println("over");
     }
