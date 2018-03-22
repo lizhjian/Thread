@@ -11,6 +11,7 @@ class  Demo implements Runnable{
     public void run() {
         for (int x = 0;x<50;x++){
             System.out.println(Thread.currentThread().toString()+"......"+x);
+            Thread.yield();//当前线程临时停一下 让出执行权
         }
     }
 }
@@ -28,7 +29,7 @@ public class JoinDemo {
        // t1.join();  //t1抢夺cpu执行权，main冻结停止，t1 t2 交替执行，等t1结束后main活过来
 
         for(int x =0;x<80;x++){
-            System.out.println(Thread.currentThread().toString()+"...main...."+x);
+          //  System.out.println(Thread.currentThread().toString()+"...main...."+x);
         }
         System.out.println("over");
     }
